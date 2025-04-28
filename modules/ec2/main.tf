@@ -15,42 +15,22 @@ data "aws_ami" "ubuntu" {
 }
 
 
+
+
 resource "aws_launch_template" "frontend_launch_template" {
   image_id         = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name = var.key.key_name
 
-  user_data = <<-EOF
+  user_data = base64encode(<<-EOF
               #!/bin/bash
               sudo apt update -y
               sudo apt install nginx -y
               echo '<h1>Frontend Server</h1>' | sudo tee /var/www/html/index.html
               sudo systemctl restart nginx
               EOF
+          )
 
-
-  cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
-
-  tag_specifications {
-    resource_type = "instance"
-    tags = {
-      Name = "FrontendServer"
-    }
-  }
-
-  network_interfaces {
-    associate_public_ip_address = true
-  }
-
-  block_device_mappings {
-    device_name = "/dev/sdf"
-    ebs {
-      volume_size = 20
-    }
-  }
 
   vpc_security_group_ids = [var.public_subnets_frontend_sg]
 
@@ -83,7 +63,7 @@ resource "aws_launch_template" "backend_launch_template" {
   instance_type = "t2.micro"
   key_name = var.key.key_name
 
-  user_data = <<-EOF
+  user_data = base64encode( <<-EOF
               #!/bin/bash
               sudo apt update -y
               sudo apt install nginx -y
@@ -91,29 +71,8 @@ resource "aws_launch_template" "backend_launch_template" {
               sudo systemctl restart nginx
               EOF
 
+          )
 
-  cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
-
-  tag_specifications {
-    resource_type = "instance"
-    tags = {
-      Name = "BackendServer"
-    }
-  }
-
-  network_interfaces {
-    associate_public_ip_address = false
-  }
-
-  block_device_mappings {
-    device_name = "/dev/sdf"
-    ebs {
-      volume_size = 20
-    }
-  }
 
   vpc_security_group_ids = [var.private_subnets_backend_sg]
 

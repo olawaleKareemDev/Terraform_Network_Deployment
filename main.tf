@@ -56,7 +56,6 @@ module "ec2" {
   private_subnets_backend_sg = module.sgs.backend_sg_id
   key = module.keys.key
 
-
 }
 
 
