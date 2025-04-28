@@ -1,0 +1,20 @@
+# Ignore Terraform state file
+*.tfstate
+*.tfstate.backup
+
+# Ignore provider plugin directories
+.terraform/
+
+# Ignore crash logs
+crash.log
+crash.*.log
+
+# Ignore Terraform temporary files
+*~
+terraform-*.tf
+
+Key Points
+
+Explicitly ignore the state file: Make sure to include both *.tfstate and *.tfstate.backup.
+
+Ignore the provider plugin directory: The .terraform/ directory contains provider plugins, which can be quite large.
