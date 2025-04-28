@@ -1,6 +1,4 @@
 
-
-
 resource "aws_security_group" "allow_database" {
   name        = "allow_mysql"
   description = "Allow MySQL inbound traffic"
@@ -35,7 +33,10 @@ resource "aws_security_group" "allow_backend" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [ var.public_subnets_frontend["public_subnet_frontend_1"].cidr_block,
-                     var.public_subnets_frontend["public_subnet_frontend_2"].cidr_block]
+                     var.public_subnets_frontend["public_subnet_frontend_2"].cidr_block,
+                     var.private_subnets_backend["private_subnet_backend_1"].cidr_block,
+                     var.private_subnets_backend["private_subnet_backend_2"].cidr_block              
+                     ]
   }
 
   ingress { 

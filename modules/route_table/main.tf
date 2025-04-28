@@ -14,7 +14,8 @@ resource "aws_route_table" "private_route_table_backend" {
   vpc_id = var.vpc_id
 
   route {
-    cidr_block = var.public_subnets_frontend["public_subnet_frontend_1"].cidr_block  
+    # cidr_block = var.public_subnets_frontend["public_subnet_frontend_1"].cidr_block  
+    cidr_block = var.internet_cidr
     nat_gateway_id = var.nat_gateway_id
   }
   tags = {
@@ -28,7 +29,8 @@ resource "aws_route_table" "private_route_table_database" {
   vpc_id = var.vpc_id
 
   route {
-    cidr_block = var.public_subnets_frontend["public_subnet_frontend_2"].cidr_block 
+    # cidr_block = var.public_subnets_frontend["public_subnet_frontend_2"].cidr_block 
+    cidr_block = var.internet_cidr
     nat_gateway_id = var.nat_gateway_id
   }
   tags = {

@@ -31,8 +31,12 @@ resource "aws_launch_template" "frontend_launch_template" {
               EOF
           )
 
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups = [var.public_subnets_frontend_sg]
+  }
 
-  vpc_security_group_ids = [var.public_subnets_frontend_sg]
+
 
 }
 
@@ -72,7 +76,7 @@ resource "aws_launch_template" "backend_launch_template" {
               EOF
 
           )
-
+ 
 
   vpc_security_group_ids = [var.private_subnets_backend_sg]
 
@@ -81,7 +85,7 @@ resource "aws_launch_template" "backend_launch_template" {
 resource "aws_autoscaling_group" "backend_asg" {
 
   launch_template {
-    id = aws_launch_template.frontend_launch_template.id
+    id = aws_launch_template.backend_launch_template.id
   }
 
   vpc_zone_identifier = [ var.private_subnets_backend["private_subnet_backend_1"].id,

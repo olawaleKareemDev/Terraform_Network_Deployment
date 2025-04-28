@@ -2,7 +2,7 @@ variable "private_subnets_database" {
   description = "Private subnet database "
 }
 
-variable "private_subnets_backend_sg" {
+variable "private_subnets_database_sg" {
   description = "Database security group"
 }
 

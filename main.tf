@@ -62,7 +62,7 @@ module "ec2" {
 module "dbs" {
   source = "./modules/dbs"
   private_subnets_database = module.subnet.private_subnets_database
-  private_subnets_backend_sg = module.sgs.backend_sg_id
+  private_subnets_database_sg = module.sgs.db_sg_id
   
 }
 

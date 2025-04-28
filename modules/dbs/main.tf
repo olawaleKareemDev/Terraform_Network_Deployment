@@ -23,7 +23,7 @@ resource "aws_db_instance" "db_1" {
   skip_final_snapshot  = true
 
   db_subnet_group_name = aws_db_subnet_group.database_subnet_group.name
-  vpc_security_group_ids = [var.private_subnets_backend_sg]
+  vpc_security_group_ids = [var.private_subnets_database_sg]
   availability_zone      = var.subnets_az[0]  
 
 
@@ -42,7 +42,7 @@ resource "aws_db_instance" "db_2" {
   skip_final_snapshot  = true
 
   db_subnet_group_name = aws_db_subnet_group.database_subnet_group.name
-  vpc_security_group_ids = [var.private_subnets_backend_sg]
+  vpc_security_group_ids = [var.private_subnets_database_sg]
   availability_zone      = var.subnets_az[1] 
 
 
